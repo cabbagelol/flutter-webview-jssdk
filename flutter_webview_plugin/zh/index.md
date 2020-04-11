@@ -8,7 +8,7 @@
 
 ### 二、代码
 #### 2-1 创建
-创建一份配置清单，起名为conf.json,作为jssdk的全局配置。
+创建一份配置清单，起名为conf.json,作为jssdk的全局配置。([床送门](/flutter_webview_plugin/conf.json))
 ```json
   {
     // 协议名称,应当命名不易重合的名称
@@ -25,7 +25,7 @@
     }
   }
 ```
-再创建一份app-jssdk[-mini].js并在头导入json。
+再创建一份app-jssdk[-mini].js([传送门](/flutter_webview_plugin/jssdk-0.1.js))并在头导入json。
 ```js
 import Conf from 'conf.json';
 ```
