@@ -222,13 +222,28 @@ class AppUtil {
 }
 ```
 #### 2-2 使用
-
+基本通信操作
 
 ```js
  const SDK = new AppSdk();
  
- // SDK.on('close') or SDK.close();
+ // 终止(关闭)
+ // SDK.on('close'); or SDK.close();
  
+ // 返回
+ // SDK.on('back');
+ 
+ // 上一页
+ // SDK.on('forward');
+ 
+ // 刷新
+ // SDK.on('refresh');
+ 
+ // 跳转内部页面
+ // SDK.on('toPage');
+ 
+ // 通过App打开页面
+ // SDK.on('toWeb');
 ```
 
 
