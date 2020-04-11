@@ -4,9 +4,10 @@
 
 基于flutter\_webview\_plugin的实现方式
 
-一、原理
+### 一、原理
 
-二、代码
+### 二、代码
+#### 2-1 创建
 创建一份配置清单，起名为conf.json,作为jssdk的全局配置。
 ```json
   {
@@ -14,14 +15,13 @@
     name: 'app',
     // schema
     schema: {
-      // 例子 www.app.com
-      android: '', 
-      ios: '',
+      android: 'www.app.com', 
+      ios: 'www.app.com',
     },
     // 应用下载地址
     download: {
-      android: '',
-      ios: '',
+      android: 'http(s)://www.app.com/download/app.apk',
+      ios: 'http(s)://apps.apple.com/{ch (地区)}/app/apple-store/id{375380948 (应用id)}',
     }
   }
 ```
@@ -179,8 +179,21 @@ class AppSdk {
 ```
 工具类
 
-```
+```js
 class AppUtil {
+  /**
+  * 工具类 检查平台
+  */
+  isVersion () {
+   if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+     return 'ios';
+   } else if (navigator.userAgent.match(/android/i)) {
+     return 'android';
+   } else {
+     return 'none';
+   }
+  }
+
   /**
    * 工具类 解析url地址
    * @param param
@@ -204,6 +217,8 @@ class AppUtil {
   }
 }
 ```
+#### 2-2 使用
+
 
 
 
