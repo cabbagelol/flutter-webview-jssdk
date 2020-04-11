@@ -1,4 +1,4 @@
-# 开始
+# 开始 [施工中]
 
 ---
 
@@ -7,15 +7,39 @@
 一、原理
 
 二、代码
+创建一份配置清单，起名为conf.json,作为jssdk的全局配置。
+```json
+  {
+    // 协议名称,应当命名不易重合的名称
+    name: 'app',
+    // schema
+    schema: {
+      // 例子 www.app.com
+      android: '', 
+      ios: '',
+    },
+    // 应用下载地址
+    download: {
+      android: '',
+      ios: '',
+    }
+  }
+```
+再创建一份app-jssdk[-mini].js并在头导入json。
+```js
+import Conf from 'conf.json';
+```
+接着创建通信的核心部分，
 
 ```js
 class AppSdk {
-  NAME = 'youejia';
+  NAME = Conf.name';
 
   /// 是否在客户端内
   isApp() {
+    var NAME = this.NAME;
     try {
-      iframe.contentWindow.location.href = "youejia://app.com";
+      iframe.contentWindow.location.href = "${NAME}://app.com";
       return true;
     } catch(e) {
       if (e.name == "NS_ERROR_UNKNOWN_PROTOCOL") {}
@@ -96,18 +120,18 @@ class AppSdk {
   }
 }
 ```
-处理业务性质对接接口
+创建AppWeb类，主要处理业务性质对接的接口，在未来新增业务都可在这里新增。
 
-```
+```js
 /**
  * 处理App外部url
  */
  class AppWeb {
-  on(type = "", {data = new Object()}) {  
-  
-    var uri = "youejia://app.com/";
-
-    var util = new AppUtil();
+  on(type = "", {data = new Object()}) {
+    const SDK = new AppSDk();
+    const util = new AppUtil();
+    const NAME = SDK.NAME;
+    var uri = "${Conf.name}://app.com/";
 
     switch (type) {
       case "toPage_app":
@@ -117,32 +141,33 @@ class AppSdk {
         break;
       case "openApp":
         if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-          // 判断useragent，当前设备为ios设备
           var loadDateTime = new Date();
-          // 设置时间阈值，在规定时间里面没有打开对应App的话，直接去App store进行下载。
+          
           window.setTimeout(function() {
             var timeOutDateTime = new Date();
             if (timeOutDateTime - loadDateTime <2200) {
-              window.location = "xxxxxxxx";  // APP下载地址
+              window.location = Conf.download.ios;
             } else {
               window.close();
             }
           },2000);
-          window.location = "apptest://apptest";　　//ios端URL Schema
+          
+          window.location = "${NAME}://${Conf.schema.ios}";
+          
         } else if (navigator.userAgent.match(/android/i)) {
-          // 判断useragent，当前设备为Android设备
-          // 判断useragent，当前设备为ios设备
           var loadDateTime = new Date();
-          // 设置时间阈值，在规定时间里面没有打开对应App的话，直接去App store进行下载。
+          
           window.setTimeout(function() {
             var timeOutDateTime = new Date();
             if (timeOutDateTime - loadDateTime < 2200) {
-              window.location = "http://leyej.com";   // APP下载地址
+              window.location = Conf.download.android;   
             } else {
               window.close();
             }
           },2000);
-          window.location = "youejia://app.com";　　// Android端URL Schema
+          
+          window.location = "${NAME}://${Conf.schema.android}";
+          
         }
         break;
       default:
