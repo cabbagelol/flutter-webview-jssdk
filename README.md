@@ -4,6 +4,10 @@
 * flutter的基本.
 * android与ios的webview差异.
 
+它主要工作：
+* 通过在app内webview实现js与webview的控制.
+* 通过外部游览器js通信app.
+
 **相关地址**
 
 | 方案 | 作者 | 依赖 |  |
