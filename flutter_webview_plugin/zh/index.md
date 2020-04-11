@@ -46,6 +46,10 @@ class AppSdk {
       return false;
     }
   }
+  
+  close () {
+    this.on('close');
+  }
 
   /**
    * 通信指令
@@ -218,6 +222,16 @@ class AppUtil {
 }
 ```
 #### 2-2 使用
+
+
+```js
+ const SDK = new AppSdk();
+ 
+ // SDK.on('close') or SDK.close();
+ 
+```
+
+
 
 
 
