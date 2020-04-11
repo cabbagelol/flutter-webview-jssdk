@@ -12,7 +12,7 @@
 
 | 方案 | 作者 | 依赖 |  |
 | --- | --- | --- | --- |
-| 1 | - | flutter\_webview\_plugin | [中文](http:///flutter_webview_plugin/zh/index.md)、英文 |
+| 1 | - | flutter\_webview\_plugin | [中文](/flutter_webview_plugin/zh/index.md)、英文 |
 
 **贡献**
 
