@@ -29,7 +29,7 @@
 ```js
 import Conf from 'conf.json';
 ```
-接着创建通信的核心部分，
+接着创建
 
 ```js
 class AppSdk {
@@ -61,7 +61,7 @@ class AppSdk {
     var strData;
     var NAME = this.NAME;
 
-    var util = new YouejiaUtil();
+    var util = new AppUtil();
 
     if (typeof data != "object") {
       console.log("data 为Object类型");
@@ -124,7 +124,7 @@ class AppSdk {
   }
 }
 ```
-创建AppWeb类，主要处理业务性质对接的接口，在未来新增业务都可在这里新增。
+创建AppWeb类，
 
 ```js
 /**
@@ -222,7 +222,7 @@ class AppUtil {
 }
 ```
 #### 2-2 使用
-基本通信操作
+在这里存在二种方式使用，第一种是在app内的webview网页直接通信。
 
 ```js
  const SDK = new AppSdk();
@@ -246,7 +246,19 @@ class AppUtil {
  // SDK.on('toWeb');
 ```
 
+第二种从系统游览器通信方式
 
+```js
+const WEB = new AppWeb();
+
+// 从外部游览器直接打开app内指定页面
+WEB.on('toPage_app', {
+  // ...
+});
+
+// 单纯打开app
+WEB.on('openApp');
+```
 
 
 
