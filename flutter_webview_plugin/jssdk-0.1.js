@@ -18,7 +18,9 @@ class AppSDK {
   FORWARD = 'forward';
   REFRESH = 'refresh';
 
-  /// 是否在客户端内
+  /**
+   * 是否在客户端内
+   */
   isApp() {
     var NAME = this.NAME;
     try {
@@ -31,19 +33,19 @@ class AppSDK {
   }
 
   close () {
-    this.on('close');
+    this.on(this.CLOSE);
   }
 
   back () {
-    this.on('back');
+    this.on(this.BACK);
   }
 
   forward () {
-    this.on('forward');
+    this.on(this.FORWARD);
   }
 
   refresh () {
-    this.on('refresh');
+    this.on(this.REFRESH);
   }
 
   /**
@@ -65,16 +67,16 @@ class AppSDK {
 
     return new Promise(async (resolve, reject) => {
       switch (method) {
-        case "close":
+        case this.CLOSE:
           strData = `${NAME}://type=close`;
           break;
-        case "back":
+        case this.BACK:
           strData = `${NAME}://type=back`;
           break;
-        case "forward":
+        case this.FORWARD:
           strData = `${NAME}://type=forward`;
           break;
-        case "refresh":
+        case this.REFRESH:
           strData = `${NAME}://type=refresh`;
           break;
         case "toPage":
@@ -83,16 +85,6 @@ class AppSDK {
           break;
         case "toWeb":
           data.type = method;
-          strData = `${NAME}://` + util.urlEncode(data).slice(1);
-          break;
-        case "storeData":
-          data.type = method;
-
-          if (data.name == null || data.data == null || data.type == null) {
-            console.log(`${method}方式参数错误，请检查该事件接收参数格式`);
-            return;
-          }
-
           strData = `${NAME}://` + util.urlEncode(data).slice(1);
           break;
         case "none":

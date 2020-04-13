@@ -225,6 +225,7 @@ WEB.on('openApp');
 
 #### 2-2-2 创建flutter代码
 
+具体看example (传送门)
 
 
 
