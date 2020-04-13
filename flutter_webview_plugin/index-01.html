@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ReadImage</title>
+</head>
+<body>
+<h1>page2</h1>
+<button onclick="onpeWebPage()">打开优e家房源详情</button>
+<button onclick="onpeApp()">打开优e家，无跳转下载</button>
+
+<button onclick="test(1)">关闭</button>
+<button onclick="test(2)">后退</button>
+<button onclick="test(3)">打开房源</button>
+<button onclick="test(4)">打开户型</button>
+<button onclick="test(5)">刷新</button>
+<button onclick="test(6)">加载百度页面</button>
+
+<div id="ad">系统</div>
+<div id="device">2</div>
+<script src="youejia-sdk-0.0.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+    const AppSdk = new YouejiaSdk();
+    
+    const AppTool = new YouejiaApp();
+
+    document.getElementById("ad").innerHTML = window.navigator.userAgent +  AppSdk.isApp();
+    
+    function test(t) {
+        switch (t) {
+            case 1:
+                AppSdk.on("close", {});
+                break;
+            case 2:
+                AppSdk.on("back",{});
+                break;
+            case 3:
+                AppSdk.on("toPage",{
+                    data: {
+                        "path": `/housingdetail/${JSON.stringify({
+                            "rhKey": "rh10010620190716190102244189",
+                            "type": 1
+                        })}`
+                    }
+                });
+                break;
+            case 4:
+                break;
+            case 5:
+                AppSdk.on("refresh",{});
+                break;
+            case 6:
+                AppSdk.on("toWeb",{
+                    data: {
+                        "path": "http://www.baidu.com"
+                    }
+                });
+                break;
+        }
+    }
+    
+    function onpeWebPage () {
+        AppTool.on("toPage_app", {
+            data: {
+                "path": `/housingdetail/${JSON.stringify({
+                    "rhKey": "rh10010620190716190102244189",
+                    "type": 1
+                })}`
+            }
+        })
+    }
+
+    function onpeApp () {
+        AppTool.on("openApp", {})
+    }
+</script>
+
+</body>
+</html>
