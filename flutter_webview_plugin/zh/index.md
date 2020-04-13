@@ -8,9 +8,9 @@
 
 ### 二、代码
 #### 2-1-1 创建javascript代码
-创建一份配置清单，起名为conf.json,作为jssdk的全局配置。([床送门](/flutter_webview_plugin/conf.json))
+创建一份app-jssdk[-mini].js([传送门](/flutter_webview_plugin/jssdk-0.1.js))，配置清单作为jssdk的全局配置。
 ```json
-  {
+  const Conf = {
     // 协议名称,应当命名不易重合的名称
     name: 'app',
     // schema
@@ -24,10 +24,6 @@
       ios: 'http(s)://apps.apple.com/{ch (地区)}/app/apple-store/id{375380948 (应用id)}',
     }
   }
-```
-再创建一份app-jssdk[-mini].js([传送门](/flutter_webview_plugin/jssdk-0.1.js))并在头导入json。
-```js
-import Conf from 'conf.json';
 ```
 接着创建
 
@@ -45,10 +41,6 @@ class AppSdk {
       if (e.name == "NS_ERROR_UNKNOWN_PROTOCOL") {}
       return false;
     }
-  }
-  
-  close () {
-    this.on('close');
   }
 
   /**
@@ -81,24 +73,6 @@ class AppSdk {
           break;
         case "refresh":
           strData = "${NAME}://type=refresh";
-          break;
-        case "toPage":
-          data.type = method;
-          strData = "${NAME}://" + util.urlEncode(data).slice(1);
-          break;
-        case "toWeb":
-          data.type = method;
-          strData = "${NAME}://" + util.urlEncode(data).slice(1);
-          break;
-        case "storeData":
-          data.type = method;
-
-          if (data.name == null || data.data == null || data.type == null) {
-            console.log(`${method}方式参数错误，请检查该事件接收参数格式`);
-            return;
-          }
-
-          strData = "${NAME}://" + util.urlEncode(data).slice(1);
           break;
         case "none":
         default:
