@@ -104,7 +104,7 @@ class AppSDK {
       resolve({
         "code": 0,
         "data": data,
-        "youejiaAppUrl": strData,
+        "AppUrl": strData,
       });
     })
 
