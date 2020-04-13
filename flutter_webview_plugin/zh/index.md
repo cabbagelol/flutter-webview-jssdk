@@ -7,7 +7,7 @@
 ### 一、原理
 
 ### 二、代码
-#### 2-1 创建
+#### 2-1-1 创建javascript代码
 创建一份配置清单，起名为conf.json,作为jssdk的全局配置。([床送门](/flutter_webview_plugin/conf.json))
 ```json
   {
@@ -221,7 +221,7 @@ class AppUtil {
   }
 }
 ```
-#### 2-2 使用
+#### 2-1-2 使用
 在这里存在二种方式使用，第一种是在app内的webview网页直接通信。
 
 ```js
@@ -259,6 +259,9 @@ WEB.on('toPage_app', {
 // 单纯打开app
 WEB.on('openApp');
 ```
+
+#### 2-2-2 创建flutter代码
+
 
 
 
