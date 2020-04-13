@@ -123,7 +123,7 @@ class AppSDK {
 /**
  * 处理App外部url
  */
- class AppWeb {
+ class AppWEB {
   on(type = "", {data = new Object()}) {
     const SDK = new AppSDK();
     const util = new AppUtil();
