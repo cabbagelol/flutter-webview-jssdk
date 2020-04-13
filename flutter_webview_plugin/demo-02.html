@@ -14,18 +14,13 @@
 <button class="weui-btn weui-btn_primary" onclick="test(1)">关闭</button>
 <button class="weui-btn weui-btn_primary" onclick="test(2)">后退</button>
 <button class="weui-btn weui-btn_primary" onclick="test(5)">刷新</button>
-<button class="weui-btn weui-btn_primary" onclick="test(6)">加载百度页面</button>
 
-<div id="ad">系统</div>
-<div id="device">2</div>
 
 <script src="jssdk-0.1.js" type="text/javascript"></script>
 <script type="text/javascript">
     const AppSdk = new AppSDK();
     const AppWeb= new AppWEB();
 
-    document.getElementById("ad").innerHTML = window.navigator.userAgent +  AppSdk.isApp();
-    
     function test(t) {
         switch (t) {
             case 1:
@@ -36,13 +31,6 @@
                 break;
             case 5:
                 AppSdk.on("refresh",{});
-                break;
-            case 6:
-                AppSdk.on("toWeb",{
-                    data: {
-                        "path": "http://www.baidu.com"
-                    }
-                });
                 break;
         }
     }

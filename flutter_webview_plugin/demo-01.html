@@ -20,11 +20,15 @@
         <a href="demo-02.html">to 2</a>
         <div id="device">2</div>
     </div>
+    
+    <div id="ad">系统</div>
 </div>
 
 <script src="jssdk-0.1.js"></script>
 <script type="text/javascript">
     const AppSdk = new AppSDK();
+    
+    document.getElementById("ad").innerHTML = window.navigator.userAgent + AppSdk.isApp();
     
     function test(t) {
         switch (t) {
