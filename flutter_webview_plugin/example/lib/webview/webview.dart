@@ -7,21 +7,18 @@ import 'dart:convert';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:flutter/material.dart';
 
-//import 'package:youejia/utils/index.dart';
-//import 'package:flutter_plugin_elui/elui.dart';
-
-class WebPage extends StatefulWidget {
+class Webview extends StatefulWidget {
   final data;
 
-  WebPage({
+  Webview({
     this.data,
   });
 
   @override
-  State<StatefulWidget> createState() => WebPageState();
+  State<StatefulWidget> createState() => WebviewState();
 }
 
-class WebPageState extends State<WebPage> {
+class WebviewState extends State<Webview> {
   Map options = {
     "url": "",
     "fullscreen": true,
@@ -83,90 +80,26 @@ class WebPageState extends State<WebPage> {
           break;
         case WebViewState.abortLoad:
           /**
-         * [webview 内部指令]
-         * 用于监听网页通知app的事件处理
-         */
+           * [webview 内部指令]
+           * 用于监听网页通知app的事件处理
+           */
           switch (state.url) {
-            case 'youejia://type=close':
+            case 'app://type=close':
               _flutterWebViewPlugin.close();
               this.dispose();
               Navigator.pop(context, "webviewBack");
               break;
-            case 'youejia://type=back':
-              _flutterWebViewPlugin.goBack();
+            case 'app://type=back':
+              this._goBack();
               break;
-            case 'youejia://type=forward':
+            case 'app://type=forward':
               _flutterWebViewPlugin.goForward();
               break;
-            case 'youejia://type=refresh':
+            case 'app://type=refresh':
               _flutterWebViewPlugin.reload();
               break;
             default:
-//              var postData = urlE(
-//                state.url.replaceAll("youejia://", ""),
-//              );
-
-//              switch (postData["type"]) {
-//                case "toPage":
-//                  if (postData["path"] == null) {
-//                    return;
-//                  }
-//                  /**
-//                   * 跳转内部路由
-//                   * @path
-//                   *
-//                   * 使用例子:
-//                   * new YouejiaSdk().on("toPage", {
-//                   *  data: {
-//                   *    "path": "url"
-//                   *  }
-//                   * })
-//                   */
-////                  Routes.router.navigateTo(context, Uri.decodeComponent(postData["path"]), transition: TransitionType.cupertino).then(
-////                    (_) {
-////                      Navigator.pop(context);
-////                    },
-////                  );
-//                  break;
-//                case "toWeb":
-//                  if (postData["path"] == "" || postData["path"] == null) {
-//                    return;
-//                  }
-//                  /**
-//                   * 跳转外部网页地址
-//                   * @path
-//                   *
-//                   * 使用例子:
-//                   * new YouejiaSdk().on("toWeb", {
-//                   *  data: {
-//                   *    "path": "url",
-//                   *    "headers": {}
-//                   *  }
-//                   * })
-//                   */
-//                  print("toWeb==== ${postData["path"]}");
-//
-//                  _flutterWebViewPlugin.reloadUrl(
-//                    Uri.decodeComponent(postData["path"]),
-//                    headers: postData["headers"] ?? {},
-//                  );
-//                  break;
-//                case "storeData":
-//                  if (postData["name"] == null || postData["data"] == null || postData["type"] == null) {
-//                    return;
-//                  }
-////                  Storage.set(
-////                    postData["name"],
-////                    value: postData["data"],
-////                    type: postData["type"],
-////                  );
-//                  break;
-//                default:
-////                  EluiMessageComponent.error(context)(
-////                    child: Text("非法协议，请参阅优e家JSSDK配置"),
-////                  );
-//                  break;
-//              }
+              // TODO 具体跳转路由代码
               break;
           }
           break;
@@ -174,12 +107,19 @@ class WebPageState extends State<WebPage> {
     });
   }
 
+  _goForward () {
+    _flutterWebViewPlugin.goForward();
+  }
+
+  _goBack () {
+    _flutterWebViewPlugin.goBack();
+  }
+
   Future _getData() async {
     return await options;
   }
 
   Widget _getWebview() {
-    print(_onHttpErrorMap);
     switch (_onHttpErrorMap["code"].toString()) {
       case "-6":
         return Padding(
@@ -218,7 +158,7 @@ class WebPageState extends State<WebPage> {
           withLocalUrl: true,
           hidden: true,
           allowFileURLs: true,
-          invalidUrlRegex: 'youejia://.*',
+          invalidUrlRegex: 'app://.*',
         );
         break;
     }
@@ -227,15 +167,10 @@ class WebPageState extends State<WebPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      appBar: !options["fullscreen"]
-//          ? EluiHeadComponent(
-//              context: context,
-//              title: title ?? "",
-//              isBack: options["isBack"] ,
-//            )
-//          : null,
+      appBar: AppBar(
+        title: Text(title??''),
+      ),
       body: SafeArea(
-//        top: options["fullscreen"] ? false : true,
         child: FutureBuilder(
           future: _futureBuilderFuture,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -244,6 +179,41 @@ class WebPageState extends State<WebPage> {
                 Expanded(
                   flex: 1,
                   child: this._getWebview(),
+                ),
+                Container(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: 10,
+                    left: 30,
+                    right: 30,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          this._goBack();
+                        },
+                        child: Icon(
+                          Icons.chevron_left,
+                          size: 50,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          this._goForward();
+                        },
+                        child: Icon(
+                          Icons.chevron_right,
+                          size: 50,
+                          color: Colors.black45,
+                        ),
+                      ),
+
+                    ],
+                  ),
                 )
               ],
             );
