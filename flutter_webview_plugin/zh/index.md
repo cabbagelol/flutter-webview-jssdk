@@ -231,30 +231,19 @@ class AppUtil {
  // SDK.on('close'); or SDK.close();
  
  // 返回
- // SDK.on('back');
+ // SDK.on('back') or SDK.back();
  
  // 上一页
- // SDK.on('forward');
+ // SDK.on('forward'); or SDK.forward();
  
  // 刷新
- // SDK.on('refresh');
- 
- // 跳转内部页面
- // SDK.on('toPage');
- 
- // 通过App打开页面
- // SDK.on('toWeb');
+ // SDK.on('refresh'); or SDK.refresh();
 ```
 
 第二种从系统游览器通信方式
 
 ```js
 const WEB = new AppWeb();
-
-// 从外部游览器直接打开app内指定页面
-WEB.on('toPage_app', {
-  // ...
-});
 
 // 单纯打开app
 WEB.on('openApp');

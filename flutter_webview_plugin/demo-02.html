@@ -2,19 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>ReadImage</title>
+    <title>游览器内部控制2-演示页面</title>
+    <link rel="stylesheet" href="https://weui.io/style/weui.css">
 </head>
 <body>
 <h1>page2</h1>
 <button onclick="onpeWebPage()">打开优e家房源详情</button>
 <button onclick="onpeApp()">打开优e家，无跳转下载</button>
 
-<button onclick="test(1)">关闭</button>
-<button onclick="test(2)">后退</button>
-<button onclick="test(3)">打开房源</button>
-<button onclick="test(4)">打开户型</button>
-<button onclick="test(5)">刷新</button>
-<button onclick="test(6)">加载百度页面</button>
+<button class="weui-btn weui-btn_primary" onclick="test(1)">关闭</button>
+<button class="weui-btn weui-btn_primary" onclick="test(2)">后退</button>
+<button class="weui-btn weui-btn_primary" onclick="test(3)">打开房源</button>
+<button class="weui-btn weui-btn_primary" onclick="test(4)">打开户型</button>
+<button class="weui-btn weui-btn_primary" onclick="test(5)">刷新</button>
+<button class="weui-btn weui-btn_primary" onclick="test(6)">加载百度页面</button>
 
 <div id="ad">系统</div>
 <div id="device">2</div>
@@ -22,7 +23,7 @@
 <script src="jssdk-0.1.js" type="text/javascript"></script>
 <script type="text/javascript">
     const AppSdk = new AppSDK();
-    const AppTool = new AppUtil();
+    const AppWeb= new AppWEB();
 
     document.getElementById("ad").innerHTML = window.navigator.userAgent +  AppSdk.isApp();
     
@@ -60,7 +61,7 @@
     }
     
     function onpeWebPage () {
-        AppTool.on("toPage_app", {
+        AppWeb.on("toPage_app", {
             data: {
                 "path": `/housingdetail/${JSON.stringify({
                     "rhKey": "rh10010620190716190102244189",
@@ -71,7 +72,7 @@
     }
 
     function onpeApp () {
-        AppTool.on("openApp", {})
+        AppWeb.on("openApp", {})
     }
 </script>
 
