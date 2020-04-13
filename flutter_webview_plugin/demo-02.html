@@ -13,8 +13,6 @@
 
 <button class="weui-btn weui-btn_primary" onclick="test(1)">关闭</button>
 <button class="weui-btn weui-btn_primary" onclick="test(2)">后退</button>
-<button class="weui-btn weui-btn_primary" onclick="test(3)">打开房源</button>
-<button class="weui-btn weui-btn_primary" onclick="test(4)">打开户型</button>
 <button class="weui-btn weui-btn_primary" onclick="test(5)">刷新</button>
 <button class="weui-btn weui-btn_primary" onclick="test(6)">加载百度页面</button>
 
@@ -35,18 +33,6 @@
                 break;
             case 2:
                 AppSdk.on("back",{});
-                break;
-            case 3:
-                AppSdk.on("toPage",{
-                    data: {
-                        "path": `/housingdetail/${JSON.stringify({
-                            "rhKey": "rh10010620190716190102244189",
-                            "type": 1
-                        })}`
-                    }
-                });
-                break;
-            case 4:
                 break;
             case 5:
                 AppSdk.on("refresh",{});
