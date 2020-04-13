@@ -179,6 +179,7 @@ class WebPageState extends State<WebPage> {
   }
 
   Widget _getWebview() {
+    print(_onHttpErrorMap);
     switch (_onHttpErrorMap["code"].toString()) {
       case "-6":
         return Padding(

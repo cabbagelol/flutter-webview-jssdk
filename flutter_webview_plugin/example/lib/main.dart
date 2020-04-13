@@ -34,9 +34,11 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      //
+      // 'https://cabbagelol.github.io/flutter-webview-jssdk/flutter_webview_plugin/demo-01.html'
       body: WebPage(
         data: {
-          'url': 'https://baidu.com',
+          'url': 'C:/Users/Administrator/GitBook/Library/Import/jssdk/flutter_webview_plugin/demo-01.html',
           'fullscreen': false
         }
       ),
