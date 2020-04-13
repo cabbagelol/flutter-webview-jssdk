@@ -1,7 +1,22 @@
-import Conf from './conf.json';
+const Conf = {
+  "name": "app",
+  "schema": {
+    "android": "www.app.com",
+    "ios": "www.app.com"
+  },
+  "download": {
+    "android": "http(s)://www.app.com/download/app.apk",
+    "ios": "http(s)://apps.apple.com/{ch (地区)}/app/apple-store/id{375380948 (应用id)}"
+  }
+};
 
-class AppSdk {
-  NAME = Conf.name';
+class AppSDK {
+  NAME = Conf.name;
+
+  CLOSE = 'close';
+  BACK = 'back';
+  FORWARD = 'forward';
+  REFRESH = 'refresh';
 
   /// 是否在客户端内
   isApp() {
@@ -17,6 +32,18 @@ class AppSdk {
 
   close () {
     this.on('close');
+  }
+
+  back () {
+    this.on('back');
+  }
+
+  forward () {
+    this.on('forward');
+  }
+
+  refresh () {
+    this.on('refresh');
   }
 
   /**
@@ -39,24 +66,24 @@ class AppSdk {
     return new Promise(async (resolve, reject) => {
       switch (method) {
         case "close":
-          strData = "${NAME}://type=close";
+          strData = `${NAME}://type=close`;
           break;
         case "back":
-          strData = "${NAME}://type=back";
+          strData = `${NAME}://type=back`;
           break;
         case "forward":
-          strData = "${NAME}://type=forward";
+          strData = `${NAME}://type=forward`;
           break;
         case "refresh":
-          strData = "${NAME}://type=refresh";
+          strData = `${NAME}://type=refresh`;
           break;
         case "toPage":
           data.type = method;
-          strData = "${NAME}://" + util.urlEncode(data).slice(1);
+          strData = `${NAME}://` + util.urlEncode(data).slice(1);
           break;
         case "toWeb":
           data.type = method;
-          strData = "${NAME}://" + util.urlEncode(data).slice(1);
+          strData = `${NAME}://` + util.urlEncode(data).slice(1);
           break;
         case "storeData":
           data.type = method;
@@ -66,7 +93,7 @@ class AppSdk {
             return;
           }
 
-          strData = "${NAME}://" + util.urlEncode(data).slice(1);
+          strData = `${NAME}://` + util.urlEncode(data).slice(1);
           break;
         case "none":
         default:
@@ -98,10 +125,10 @@ class AppSdk {
  */
  class AppWeb {
   on(type = "", {data = new Object()}) {
-    const SDK = new AppSDk();
+    const SDK = new AppSDK();
     const util = new AppUtil();
     const NAME = SDK.NAME;
-    var uri = "${Conf.name}://app.com/";
+    var uri = `${Conf.name}://app.com/`;
 
     switch (type) {
       case "toPage_app":
@@ -122,7 +149,7 @@ class AppSdk {
             }
           },2000);
 
-          window.location = "${NAME}://${Conf.schema.ios}";
+          window.location = `${NAME}://${Conf.schema.ios}`;
 
         } else if (navigator.userAgent.match(/android/i)) {
           var loadDateTime = new Date();
@@ -136,8 +163,7 @@ class AppSdk {
             }
           },2000);
 
-          window.location = "${NAME}://${Conf.schema.android}";
-
+          window.location = `${NAME}://${Conf.schema.android}`;
         }
         break;
       default:

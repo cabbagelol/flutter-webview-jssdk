@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // 'https://cabbagelol.github.io/flutter-webview-jssdk/flutter_webview_plugin/demo-01.html'
       body: WebPage(
         data: {
-          'url': 'C:/Users/Administrator/GitBook/Library/Import/jssdk/flutter_webview_plugin/demo-01.html',
+          'url': 'https://cabbagelol.github.io/flutter-webview-jssdk/flutter_webview_plugin/demo-01.html',
           'fullscreen': false
         }
       ),
