@@ -7,13 +7,19 @@
 </head>
 <body>
 <h1>page1</h1>
-<div onclick="open_or_download_app()">1</div>
-<button onclick="test(1)">关闭</button>
-<button onclick="test(2)">刷新</button>
-<button onclick="test(3)">后退</button>
-<button onclick="test(4)">前进</button>
-<a href="demo-02.html">to 2</a>
-<div id="device">2</div>
+
+<div class="button-sp-area">
+    <button class="weui-btn weui-btn_mini weui-btn_primary" onclick="test(1)">关闭</button>
+    <button class="weui-btn weui-btn_mini weui-btn_primary" onclick="test(2)">刷新</button>
+    <button class="weui-btn weui-btn_mini weui-btn_primary" onclick="test(3)">后退</button>
+    <button class="weui-btn weui-btn_mini weui-btn_primary" onclick="test(4)">前进</button>
+</div>
+
+<div class="button-sp-area">
+    <a href="demo-02.html">to 2</a>
+    <div id="device">2</div>
+</div>
+
 
 <script src="jssdk-0.1.js"></script>
 <script type="text/javascript">
@@ -33,42 +39,6 @@
             case 4:
                 AppSdk.on("forward",{});
                 break;
-        }
-    }
-
-    function open_or_download_app() {
-        var device = document.getElementById("device");
-        if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-            device.innerHTML = "ios设备";
-            // 判断useragent，当前设备为ios设备
-            var loadDateTime = new Date();
-            // 设置时间阈值，在规定时间里面没有打开对应App的话，直接去App store进行下载。
-            window.setTimeout(function() {
-                var timeOutDateTime = new Date();
-                if (timeOutDateTime - loadDateTime <2200) {
-                    window.location = "xxxxxxxx";  // APP下载地址
-                } else {
-                    window.close();
-                }
-            },2000);
-            window.location = "apptest://apptest";　　//ios端URL Schema
-        } else if (navigator.userAgent.match(/android/i)) {
-            console.log("233")
-    
-            device.innerHTML = "Android设备";
-            // 判断useragent，当前设备为Android设备
-            // 判断useragent，当前设备为ios设备
-            var loadDateTime = new Date();
-            // 设置时间阈值，在规定时间里面没有打开对应App的话，直接去App store进行下载。
-            window.setTimeout(function() {
-                var timeOutDateTime = new Date();
-                if (timeOutDateTime - loadDateTime < 2200) {
-                    window.location = "http://leyej.com";   // APP下载地址
-                } else {
-                    window.close();
-                }
-            },2000);
-            window.location = "youejia://app.com";　　// Android端URL Schema
         }
     }
 </script>
